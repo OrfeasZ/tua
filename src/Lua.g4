@@ -5,124 +5,188 @@ chunk
     ;
 
 block
-    : stat* retstat?
+    : stat* retStat?
     ;
 
 stat
-    : ';'
-    | varlist '=' explist
-    | functioncall
+    : colonStat
+    | assignStat
+    | functionCall
     | label
-    | 'break'
-    | 'goto' IDENTIFIER
-    | 'do' block 'end'
-    | 'while' exp 'do' block 'end'
-    | 'repeat' block 'until' exp
-    | 'if' exp 'then' block ('elseif' exp 'then' block)* ('else' block)? 'end'
-    | 'for' IDENTIFIER '=' exp ',' exp (',' exp)? 'do' block 'end'
-    | 'for' namelist 'in' explist 'do' block 'end'
-    | 'function' funcname funcbody
-    | 'local' 'function' IDENTIFIER funcbody
-    | 'local' namelist ('=' explist)?
+    | breakStat
+    | gotoStat
+    | doStat
+    | whileStat
+    | repeatStat
+    | ifStat
+    | forStat
+    | forInStat
+    | functionDefStat
+    | localFunctionStat
+    | localVarStat
     ;
 
-retstat
-    : 'return' explist? ';'?
+colonStat
+    : ';'
+    ;
+
+assignStat
+    : varList '=' exprList
+    ;
+
+breakStat
+    : 'break'
+    ;
+
+gotoStat
+    : 'goto' IDENTIFIER
+    ;
+
+doStat
+    :  'do' block 'end'
+    ;
+
+whileStat
+    : 'while' expr 'do' block 'end'
+    ;
+
+repeatStat
+    : 'repeat' block 'until' expr
+    ;
+
+ifStat
+    : 'if' expr 'then' block ('elseif' expr 'then' block)* ('else' block)? 'end'
+    ;
+
+forStat
+    : 'for' IDENTIFIER '=' expr ',' expr (',' expr)? 'do' block 'end'
+    ;
+
+forInStat
+    : 'for' nameList 'in' exprList 'do' block 'end'
+    ;
+
+functionDefStat
+    : 'function' funcName funcBody
+    ;
+
+localFunctionStat
+    : 'local' 'function' IDENTIFIER funcBody
+    ;
+
+localVarStat
+    : 'local' nameList ('=' exprList)?
+    ;
+
+retStat
+    : 'return' exprList? ';'?
     ;
 
 label
     : '::' IDENTIFIER '::'
     ;
 
-funcname
+funcName
     : IDENTIFIER ('.' IDENTIFIER)* (':' IDENTIFIER)?
     ;
 
-varlist
+varList
     : variable (',' variable)*
     ;
 
 variable
-    : IDENTIFIER vareval*
-    | '(' exp ')' vareval+
+    : IDENTIFIER varEval*
+    | '(' expr ')' varEval+
     ;
 
-vareval
-    : selfcall* '[' exp ']'
-    | selfcall* '.' IDENTIFIER
+varEval
+    : selfCall* '[' expr ']'
+    | selfCall* '.' IDENTIFIER
     ;
 
-namelist
+nameList
     : IDENTIFIER (',' IDENTIFIER)*
     ;
 
-explist
-    : exp (',' exp)*
+exprList
+    : expr (',' expr)*
     ;
 
-exp
-    : 'nil'
-    | 'false'
-    | 'true'
+expr
+    : nilExpr
+    | boolExpr
     | numeral
-    | literalstring
-    | '...'
-    | functiondef
-    | prefixexp
-    | tableconstructor
-    | exp binop exp
-    | unop exp
+    | literalString
+    | varargExpr
+    | functionDef
+    | prefixExpr
+    | tableConstructor
+    | expr binop expr
+    | unop expr
     ;
 
-prefixexp
-    : variable selfcall*
-    | '(' exp ')' selfcall*
+nilExpr
+    : 'nil'
     ;
 
-functioncall
-    : variable selfcall+
-    | '(' exp ')' selfcall+
+boolExpr
+    : 'false'
+    | 'true'
     ;
 
-selfcall
+varargExpr
+    : '...'
+    ;
+
+prefixExpr
+    : variable selfCall*
+    | '(' expr ')' selfCall*
+    ;
+
+functionCall
+    : variable selfCall+
+    | '(' expr ')' selfCall+
+    ;
+
+selfCall
     : args
     | ':' IDENTIFIER args
     ;
 
 args
-    : '(' explist? ')'
-    | tableconstructor
-    | literalstring
+    : '(' exprList? ')'
+    | tableConstructor
+    | literalString
     ;
 
-functiondef
-    : 'function' funcbody
+functionDef
+    : 'function' funcBody
     ;
 
-funcbody
-    : '(' parlist? ')' block 'end'
+funcBody
+    : '(' parList? ')' block 'end'
     ;
 
-parlist
-    : namelist (',' '...')?
+parList
+    : nameList (',' '...')?
     | '...'
     ;
 
-tableconstructor
-    : '{' fieldlist? '}'
+tableConstructor
+    : '{' fieldList? '}'
     ;
 
-fieldlist
-    : field (fieldsep field)* fieldsep?
+fieldList
+    : field (fieldSep field)* fieldSep?
     ;
 
 field
-    : '[' exp ']' '=' exp
-    | IDENTIFIER '=' exp
-    | exp
+    : '[' expr ']' '=' expr
+    | IDENTIFIER '=' expr
+    | expr
     ;
 
-fieldsep
+fieldSep
     : ','
     | ';'
     ;
@@ -158,7 +222,7 @@ unop
     | '~'
     ;
 
-literalstring
+literalString
     : SINGLE_STRING
     | DOUBLE_STRING
     | LONG_STRING
