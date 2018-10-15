@@ -9,9 +9,14 @@
         "sourceMap": true,
         "strict": true,
         "outDir": "dist",
-        "strictNullChecks": true
+        "strictNullChecks": true,
+        "experimentalDecorators": true,
+        "strictFunctionTypes": false
     },
     "include": [
         "src/**/*"
+    ],
+    "exclude": [
+        "node_modules"
     ]
 }
