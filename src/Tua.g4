@@ -88,10 +88,10 @@ callableType
     ;
 
 builtinType
-    : 'integer'
+    : 'int'
     | 'float'
-    | 'boolean'
-    | 'string'
+    | 'bool'
+    | 'str'
     | 'any'
     | 'nil'
     ;

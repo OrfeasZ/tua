@@ -9,28 +9,28 @@ Tua follows the same basic syntax of Lua, while introducing several optional con
 ## Example Syntax
 **NOTICE: This syntax is a work in progress and may not be representative of final Tua syntax.**
 
-    local a: integer = 123
+    local a: int = 123
     
-	function b(x: integer, y: integer) -> float
+	function b(x: int, y: int) -> float
 		return x / y
 	end	
 	
-	function c(x: (integer, integer) -> float) -> float
+	function c(x: (int, int) -> float) -> float
 		return x(5, 6)
 	end
 	
-	function d() -> (integer, string)
+	function d() -> (int, str)
 		return 123, "123"
 	end
 	
-	local e: { integer } = { 1, 2, 3 }
-	local f: { a: string } = { a = "hello" }
+	local e: { int } = { 1, 2, 3 }
+	local f: { a: str } = { a = "hello" }
 	
     typedef MyType {
-		x: integer,
-		y: string,
+		x: int,
+		y: str,
 		z: float,
-		w: string?
+		w: str?
 	}
 	
 	local g: MyType = {
@@ -40,21 +40,21 @@ Tua follows the same basic syntax of Lua, while introducing several optional con
 		w = nil
 	}
 	
-	global h string
+	global h str
 	h = "goodbye"
 	
 	typedef GenericType<T> {
 	    x: T,
-	    y: integer?
+	    y: int?
 	}
 	
-	local i: GenericType<string> = {
+	local i: GenericType<str> = {
 	    x = "so generic"
 	}
 	
-	function j<T>(x: T) -> string 
+	function j<T>(x: T) -> str 
 	    return tostring(x)
 	end
 	
-	print(j<integer>(123))
+	print(j<int>(123))
 	
