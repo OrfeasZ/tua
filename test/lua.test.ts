@@ -1,8 +1,8 @@
 import {ANTLRErrorListener, ANTLRInputStream, CommonTokenStream, RecognitionException, Recognizer} from "antlr4ts";
 import {expect} from "chai";
 import * as fs from "fs";
-import {LuaLexer} from "../src/grammar/LuaLexer";
-import {LuaParser} from "../src/grammar/LuaParser";
+import {TuaLexer} from "../src/grammar/TuaLexer";
+import {TuaParser} from "../src/grammar/TuaParser";
 
 interface ISyntaxError {
     line: number;
@@ -36,9 +36,9 @@ describe("Lua", () => {
 
             const fileData = fs.readFileSync("test/lua/" + file).toString();
             const chars = new ANTLRInputStream(fileData);
-            const lexer = new LuaLexer(chars);
+            const lexer = new TuaLexer(chars);
             const tokens  = new CommonTokenStream(lexer);
-            const parser = new LuaParser(tokens);
+            const parser = new TuaParser(tokens);
 
             parser.removeErrorListeners();
             parser.addErrorListener(errorListener);

@@ -11,8 +11,21 @@ nameList
     : IDENTIFIER typeDecl? (',' IDENTIFIER typeDecl?)*
     ;
 
+localFunctionStat
+    : 'local' 'function' IDENTIFIER typeTemplate? funcBody
+    ;
+
 funcBody
     : '(' parList? ')' ('->' returnType)? block 'end'
+    ;
+
+funcName
+    : IDENTIFIER ('.' IDENTIFIER)* (':' IDENTIFIER)? typeTemplate?
+    ;
+
+selfCall
+    : typeSpecialization? args
+    | ':' IDENTIFIER typeSpecialization? args
     ;
 
 stat
@@ -44,7 +57,7 @@ tuaType
     : builtinType
     | tableType
     | callableType
-    | IDENTIFIER
+    | IDENTIFIER typeSpecialization?
     ;
 
 typeList
@@ -58,7 +71,7 @@ returnType
     ;
 
 namedType
-    : IDENTIFIER ':' tuaType '?'?
+    : IDENTIFIER typeTemplate? ':' tuaType '?'?
     ;
 
 namedOrTuaType
@@ -83,8 +96,16 @@ builtinType
     | 'nil'
     ;
 
+typeTemplate
+    : '<' IDENTIFIER (',' IDENTIFIER)* '>'
+    ;
+
+typeSpecialization
+    : '<' tuaType (',' tuaType)* '>'
+    ;
+
 typedefStat
-    : 'typedef' IDENTIFIER tuaType '?'?
+    : 'typedef' IDENTIFIER typeTemplate? tuaType '?'?
     ;
 
 globalStat

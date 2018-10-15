@@ -20,7 +20,7 @@
   },
   "scripts": {
     "tsc": "tsc",
-    "antlr": "antlr4ts src/Tua.g4 src/Lua.g4 -o src/grammar",
+    "antlr": "antlr4ts src/Tua.g4 -o src/grammar",
     "build": "npm run antlr && npm run tsc",
     "test": "mocha --require ts-node/register test/**/*.test.ts"
   }

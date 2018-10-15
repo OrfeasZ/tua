@@ -40,3 +40,21 @@ Tua follows the same basic syntax of Lua, while introducing several optional con
 		w = nil
 	}
 	
+	global h string
+	h = "goodbye"
+	
+	typedef GenericType<T> {
+	    x: T,
+	    y: integer?
+	}
+	
+	local i: GenericType<string> = {
+	    x = "so generic"
+	}
+	
+	function j<T>(x: T) -> string 
+	    return tostring(x)
+	end
+	
+	print(j<integer>(123))
+	
