@@ -1,0 +1,26 @@
+{
+  "name": "tua",
+  "version": "0.0.1",
+  "description": "Lua, but typed",
+  "repository": "https://github.com/OrfeasZ/tua",
+  "author": "Orfeas Zafeiris",
+  "devDependencies": {
+    "@types/chai": "^4.1.6",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.11.7",
+    "antlr4ts-cli": "^0.4.0-alpha.4",
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.1"
+  },
+  "dependencies": {
+    "antlr4ts": "^0.4.1-alpha.0"
+  },
+  "scripts": {
+    "tsc": "tsc",
+    "antlr": "antlr4ts src/Lua.g4 -o src/grammar",
+    "test": "mocha --require ts-node/register test/**/*.test.ts"
+  }
+}

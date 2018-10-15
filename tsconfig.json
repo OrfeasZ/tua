@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es2016",
+        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "strict": true,
+        "outDir": "dist",
+        "strictNullChecks": true
+    },
+    "include": [
+        "src/**/*"
+    ]
+}
