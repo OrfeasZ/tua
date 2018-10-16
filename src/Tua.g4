@@ -20,12 +20,16 @@ funcBody
     ;
 
 funcName
-    : IDENTIFIER ('.' IDENTIFIER)* (':' IDENTIFIER)? typeTemplate?
+    : IDENTIFIER ('.' IDENTIFIER)* selfCallIdentifier? typeTemplate?
     ;
 
 selfCall
     : typeSpecialization? args
-    | ':' IDENTIFIER typeSpecialization? args
+    | selfCallIdentifier typeSpecialization? args
+    ;
+
+selfCallIdentifier
+    : ':' IDENTIFIER
     ;
 
 stat

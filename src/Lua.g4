@@ -55,7 +55,15 @@ repeatStat
     ;
 
 ifStat
-    : 'if' expr 'then' block ('elseif' expr 'then' block)* ('else' block)? 'end'
+    : 'if' expr 'then' block elseIfStat* elseStat? 'end'
+    ;
+
+elseIfStat
+    : 'elseif' expr 'then' block
+    ;
+
+elseStat
+    : 'else' block
     ;
 
 forStat
@@ -79,7 +87,7 @@ localVarStat
     ;
 
 retStat
-    : 'return' exprList? ';'?
+    : 'return' exprList? colonStat?
     ;
 
 label
@@ -168,8 +176,8 @@ funcBody
     ;
 
 parList
-    : nameList (',' '...')?
-    | '...'
+    : nameList (',' varargExpr)?
+    | varargExpr
     ;
 
 tableConstructor
@@ -181,9 +189,17 @@ fieldList
     ;
 
 field
-    : '[' expr ']' '=' expr
-    | IDENTIFIER '=' expr
+    : exprKeyField
+    | identifierKeyField
     | expr
+    ;
+
+exprKeyField
+    : '[' expr ']' '=' expr
+    ;
+
+identifierKeyField
+    : IDENTIFIER '=' expr
     ;
 
 fieldSep
@@ -217,9 +233,13 @@ binop
 
 unop
     : '-'
-    | 'not'
+    | notop
     | '#'
     | '~'
+    ;
+
+notop
+    : 'not'
     ;
 
 literalString
