@@ -61,7 +61,7 @@ tuaType
     : builtinType nullableOp?
     | tableType nullableOp?
     | callableType
-    | nullableCallbableType
+    | nullableCallableType
     | IDENTIFIER typeSpecialization? nullableOp?
     ;
 
@@ -69,7 +69,7 @@ nullableOp
     : '?'
     ;
 
-nullableCallbableType
+nullableCallableType
     : '(' callableType ')' nullableOp
     ;
 
