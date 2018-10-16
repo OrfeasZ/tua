@@ -48,6 +48,7 @@ stat
     | functionDefStat
     | localFunctionStat
     | localVarStat
+    | tableTypedefStat
     | typedefStat
     | globalStat
     ;
@@ -119,6 +120,14 @@ typeTemplate
 
 typeSpecialization
     : '<' tuaType (',' tuaType)* '>'
+    ;
+
+templatedIdentifiers
+    : IDENTIFIER typeTemplate? (',' IDENTIFIER typeTemplate?)*
+    ;
+
+tableTypedefStat
+    : 'typedef' IDENTIFIER ('extends' templatedIdentifiers)? tableType
     ;
 
 typedefStat
