@@ -30,7 +30,7 @@ export class TableType extends Type {
 
     public hasAnyRepeatedType(): boolean {
         for (const type of this.internalRepeatedTypes) {
-            if (type.type() === TuaType.ANY) {
+            if (type.type === TuaType.ANY) {
                 return true;
             }
         }
@@ -74,7 +74,7 @@ export class TableType extends Type {
 
         // All of the leftover types must be nullable.
         for (const key of Object.keys(ourNamedTypes)) {
-            if (!ourNamedTypes[key].isNullable()) {
+            if (!ourNamedTypes[key].nullable) {
                 return false;
             }
         }

@@ -9,7 +9,8 @@
         "no-console": false,
         "no-trailing-whitespace": false,
         "semicolon": [true, "always", "ignore-bound-class-methods"],
-        "no-empty": false
+        "no-empty": false,
+        "interface-name": false
     },
     "rulesDirectory": []
 }
