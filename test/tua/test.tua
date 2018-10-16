@@ -17,7 +17,7 @@ typedef MyType {
 	y: str,
 	z: float,
 	w: str?,
-	a: (int, Swoot) -> (Swag, void)
+	a: (int, Swoot) -> (Swag),
 	b: { int }
 }
 
