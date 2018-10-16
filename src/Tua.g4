@@ -68,6 +68,11 @@ typeList
     : tuaType (',' tuaType)*
     ;
 
+// TODO: Support specifying type for vararg callables.
+parTypeList
+    : typeList (',' varargExpr)?
+    ;
+
 returnType
     : '(' typeList ')'
     | tuaType
@@ -88,7 +93,7 @@ tableType
     ;
 
 callableType
-    : '(' typeList? ')' '->' returnType
+    : '(' parTypeList? ')' '->' returnType
     ;
 
 builtinType
@@ -97,7 +102,6 @@ builtinType
     | 'bool'
     | 'str'
     | 'any'
-    | 'nil'
     ;
 
 typeTemplate
