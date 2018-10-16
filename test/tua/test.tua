@@ -1,0 +1,56 @@
+local a: int = 123
+
+function b(x: int, y: int) -> float
+	return x / y
+end
+
+function c(x: (int, int, Swoog) -> Swoog, y: Swag, dd) -> (Swoot, int)
+	return x(5, 6)
+end
+
+function d() -> (int, str)
+	return 123, "123"
+end
+
+typedef MyType {
+	x: int,
+	y: str,
+	z: float,
+	w: str?,
+	a: (int, Swoot) -> (Swag, void)
+	b: { int }
+}
+
+local e: { int } = { 1, 2, 3 }
+local f: { a: str, b: Str, { Swg } } = { a = "hello" }
+local f: (Swg, int) -> MyType
+
+local g: MyType = {
+	x = 456,
+	y = "789",
+	z = 1.5,
+	w = nil
+}
+
+global h str
+h = "goodbye"
+
+typedef GenericType<T> {
+    x: T,
+    y: int?,
+	z: (Swag) -> swoot
+}
+
+local i: GenericType<T> = {
+    x = "so generic"
+}
+
+function j<T>(x: int, y: GenericType<T>, z: { (MyType, int) -> void }) -> str 
+    return tostring(x)
+end
+
+print(j<int>(123))
+
+function k(x: { int }, y: MyType) -> void 
+
+end
