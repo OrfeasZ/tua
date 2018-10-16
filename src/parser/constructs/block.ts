@@ -21,6 +21,10 @@ export class Block extends Construct {
         return Type.Invalid;
     }
 
+    public isBlock(): boolean {
+        return true;
+    }
+
     public collectErrors(): SyntaxError[] {
         const errors: SyntaxError[] = [];
 
