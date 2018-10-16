@@ -51,21 +51,22 @@ export class CallableType extends Type {
             return false;
         }
 
-        const otherCallableType = otherType as CallableType;
+        const ourType = this.nestedType() as CallableType;
+        const realOtherType = otherType.nestedType() as CallableType;
 
         // Check if our return type matches.
-        if (this.internalReturnType !== otherCallableType.returnType()) {
+        if (ourType.internalReturnType !== realOtherType.returnType()) {
             return false;
         }
 
-        if (this.internalReturnTypes.length !== otherCallableType.returnTypes().length) {
+        if (ourType.internalReturnTypes.length !== realOtherType.returnTypes().length) {
             return false;
         }
 
         // Check each return type one-by-one to check if they're assignable to each other.
         // This also checks if they're in the correct order.
-        for (let i = 0; i < this.internalReturnTypes.length; ++i) {
-            if (!this.internalReturnTypes[i].isAssignableFrom(otherCallableType.returnTypes()[i])) {
+        for (let i = 0; i < ourType.internalReturnTypes.length; ++i) {
+            if (!ourType.internalReturnTypes[i].isAssignableFrom(realOtherType.returnTypes()[i])) {
                 return false;
             }
         }

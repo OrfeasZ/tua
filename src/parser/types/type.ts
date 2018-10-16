@@ -5,8 +5,10 @@ export enum TuaType {
     BOOL,
     STR,
     ANY,
+    NIL,
     TABLE,
     CALLABLE,
+    NAMED,
 }
 
 export class Type {
@@ -21,6 +23,7 @@ export class Type {
     public static Str: Type = new Type(TuaType.STR, false);
     public static NullableStr: Type = new Type(TuaType.STR, true);
     public static Any: Type = new Type(TuaType.ANY, true);
+    public static Nil: Type = new Type(TuaType.NIL, true);
 
     /**
      * The low-level tua type enumeration for this type.
@@ -34,7 +37,15 @@ export class Type {
 
     constructor(type: TuaType, nullable: boolean) {
         this.type = type;
-        this.nullable = nullable || type === TuaType.ANY;
+        this.nullable = nullable || type === TuaType.ANY || type === TuaType.NIL;
+    }
+
+    /**
+     *  Returns the nested (real) type of this type. Mostly useful for
+     *  named types (types with named aliases).
+     */
+    public nestedType(): Type {
+        return this;
     }
 
     /**
@@ -42,28 +53,32 @@ export class Type {
      * @param otherType
      */
     public isAssignableFrom(otherType: Type): boolean {
+        const ourType = this.nestedType();
+        const realOtherType = otherType.nestedType();
+
         // Nullable types cannot be assigned to non-nullable types
         // (the opposite is fine).
-        if (otherType.nullable && !this.nullable) {
+        if (realOtherType.nullable && !ourType.nullable) {
             return false;
         }
 
         // If we're of type any then any type can be assigned to us.
-        if (this.type === TuaType.ANY) {
+        if (ourType.type === TuaType.ANY) {
             return true;
         }
 
+
         // Allow assignment of both ints and floats to floats.
         // TODO: Make this configurable.
-        if (this.type === TuaType.FLOAT &&
-            (otherType.type === TuaType.FLOAT ||
-            otherType.type === TuaType.INT)) {
+        if (ourType.type === TuaType.FLOAT &&
+            (realOtherType.type === TuaType.FLOAT ||
+            realOtherType.type === TuaType.INT)) {
             return true;
         }
 
         // Otherwise we expect the types to be equal.
         // More specialized types (like table and callable) provide
         // their own implementation.
-        return this.type === otherType.type;
+        return ourType.type === realOtherType.type;
     }
 }

@@ -1,7 +1,7 @@
 import {TuaType, Type} from "./type";
 
 export class TableType extends Type {
-    protected internalNamedTypes: {[key: string]: Type} = {};
+    protected internalNamedTypes: { [key: string]: Type } = {};
     protected internalRepeatedTypes: Type[] = [];
 
     constructor(nullable: boolean) {
@@ -44,18 +44,19 @@ export class TableType extends Type {
             return false;
         }
 
+        const ourType = this.nestedType() as TableType;
+        const realOtherType = otherType.nestedType() as TableType;
+
         // If we have `any` specified as a repeated field then anything else
         // should be assignable to us.
-        if (this.hasAnyRepeatedType()) {
+        if (ourType.hasAnyRepeatedType()) {
             return true;
         }
 
-        const otherTableType = otherType as TableType;
-
         // Otherwise we need to check our types one-by-one.
         // We expect to have all the named types of the other type.
-        const ourNamedTypes = { ...this.internalNamedTypes };
-        const otherNamedTypes = otherTableType.namedTypes();
+        const ourNamedTypes = { ...ourType.internalNamedTypes };
+        const otherNamedTypes = realOtherType.namedTypes();
 
         for (const key of Object.keys(otherNamedTypes)) {
             // Check if the key exists in our named types.
@@ -64,7 +65,7 @@ export class TableType extends Type {
             }
 
             // Check if the types are assignable.
-            if (!ourNamedTypes[key].isAssignableFrom(otherTableType.namedTypes()[key])) {
+            if (!ourNamedTypes[key].isAssignableFrom(realOtherType.namedTypes()[key])) {
                 return false;
             }
 
