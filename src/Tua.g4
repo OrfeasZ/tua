@@ -54,14 +54,23 @@ stat
 
 // Custom tua rules.
 typeDecl
-    : ':' tuaType '?'?
+    : ':' tuaType
     ;
 
 tuaType
-    : builtinType
-    | tableType
+    : builtinType nullableOp?
+    | tableType nullableOp?
     | callableType
-    | IDENTIFIER typeSpecialization?
+    | nullableCallbableType
+    | IDENTIFIER typeSpecialization? nullableOp?
+    ;
+
+nullableOp
+    : '?'
+    ;
+
+nullableCallbableType
+    : '(' callableType ')' nullableOp
     ;
 
 typeList
@@ -80,7 +89,7 @@ returnType
     ;
 
 namedType
-    : IDENTIFIER typeTemplate? ':' tuaType '?'?
+    : IDENTIFIER typeTemplate? ':' tuaType
     ;
 
 namedOrTuaType
@@ -113,9 +122,9 @@ typeSpecialization
     ;
 
 typedefStat
-    : 'typedef' IDENTIFIER typeTemplate? tuaType '?'?
+    : 'typedef' IDENTIFIER typeTemplate? tuaType
     ;
 
 globalStat
-    : 'global' IDENTIFIER tuaType '?'?
+    : 'global' IDENTIFIER tuaType
     ;
