@@ -1,8 +1,9 @@
+import {FunctionCallContext} from "../../../grammar/TuaParser";
 import {Construct} from "../construct";
 import {Statement} from "../statement";
 
 export class FunctionCallStatement extends Statement {
-    constructor(parent: Construct) {
+    constructor(ctx: FunctionCallContext, parent: Construct) {
         super(parent);
     }
 }

@@ -1,8 +1,9 @@
+import {RepeatStatContext} from "../../../grammar/TuaParser";
 import {Construct} from "../construct";
 import {Statement} from "../statement";
 
 export class RepeatStatement extends Statement {
-    constructor(parent: Construct) {
+    constructor(ctx: RepeatStatContext, parent: Construct) {
         super(parent);
     }
 }

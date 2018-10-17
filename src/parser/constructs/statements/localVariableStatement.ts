@@ -1,8 +1,9 @@
+import {LocalVarStatContext} from "../../../grammar/TuaParser";
 import {Construct} from "../construct";
 import {Statement} from "../statement";
 
 export class LocalVariableStatement extends Statement {
-    constructor(parent: Construct) {
+    constructor(ctx: LocalVarStatContext, parent: Construct) {
         super(parent);
     }
 }

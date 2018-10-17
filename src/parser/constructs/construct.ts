@@ -1,5 +1,5 @@
+import {AnalysisError} from "../../util/analysisError";
 import {Type} from "../types/type";
-import {Block} from "./block";
 
 /**
  * Represents a language construct that is used for
@@ -26,7 +26,7 @@ export abstract class Construct {
      * Collects and returns all the errors encountered by
      * this and all children constructs.
      */
-    public collectErrors(): SyntaxError[] {
+    public collectErrors(): AnalysisError[] {
         return [];
     }
 
@@ -48,12 +48,10 @@ export abstract class Construct {
      * Returns the top level Block by walking through
      * all the parents.
      */
-    public topLevelBlock(): Block {
-        const self: Construct = this;
-
+    public topLevelBlock(): Construct {
         // If we don't have a parent it means we're the top level block.
         if (this.parent === null) {
-            return self as Block;
+            return this;
         }
 
         return this.parent.topLevelBlock();
@@ -63,13 +61,13 @@ export abstract class Construct {
      * Gets the parent block for this construct by walking
      * the parent constructs until a block construct is found.
      */
-    public parentBlock(): Block | null {
+    public parentBlock(): Construct | null {
         if (this.parent === null) {
             return null;
         }
 
         if (this.parent.isBlock()) {
-            return this.parent as Block;
+            return this.parent;
         }
 
         return this.parent.parentBlock();
