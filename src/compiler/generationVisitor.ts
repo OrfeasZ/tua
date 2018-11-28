@@ -33,7 +33,7 @@ import {
     RepeatStatContext, RetStatContext,
     SelfCallContext, SelfCallIdentifierContext,
     StatContext,
-    TableConstructorContext,
+    TableConstructorContext, TypedIdentifierContext,
     UnopContext,
     VarargExprContext, VarEvalContext,
     VariableContext,
@@ -63,7 +63,7 @@ export class GenerationVisitor extends AbstractParseTreeVisitor<void> implements
     }
 
     public visitNameList(ctx: NameListContext, writer: Writer = new NullWriter()) {
-        const identifiers = ctx.IDENTIFIER();
+        const identifiers = ctx.typedIdentifier();
         const identifierCount = identifiers.length;
 
         for (let i = 0; i < identifierCount; ++i) {
@@ -71,8 +71,12 @@ export class GenerationVisitor extends AbstractParseTreeVisitor<void> implements
                 writer.write(", ");
             }
 
-            writer.write(identifiers[i].text);
+            this.visitTypedIdentifier(identifiers[i], writer);
         }
+    }
+
+    public visitTypedIdentifier(ctx: TypedIdentifierContext, writer: Writer = new NullWriter()) {
+        writer.write(ctx.IDENTIFIER().text);
     }
 
     public visitLocalFunctionStat(ctx: LocalFunctionStatContext, writer: Writer = new NullWriter()) {
