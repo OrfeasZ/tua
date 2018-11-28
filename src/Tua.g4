@@ -8,7 +8,7 @@ chunk
     ;
 
 nameList
-    : IDENTIFIER typeDecl? (',' IDENTIFIER typeDecl?)*
+    : typedIdentifier (',' typedIdentifier)*
     ;
 
 localFunctionStat
@@ -26,10 +26,6 @@ funcName
 selfCall
     : typeSpecialization? args
     | selfCallIdentifier typeSpecialization? args
-    ;
-
-selfCallIdentifier
-    : ':' IDENTIFIER
     ;
 
 stat
@@ -56,6 +52,14 @@ stat
 // Custom tua rules.
 typeDecl
     : ':' tuaType
+    ;
+
+selfCallIdentifier
+    : ':' IDENTIFIER
+    ;
+
+typedIdentifier
+    : IDENTIFIER typeDecl?
     ;
 
 tuaType
