@@ -104,4 +104,18 @@ export class LocalVariableStatement extends Statement {
             symbol.setType(Type.Any);
         }
     }
+
+    public collectErrors() {
+        let errors = [ ...this.analysisErrors ];
+
+        for (const symbol of this.symbols) {
+            errors = [ ...errors, ...symbol.collectErrors() ];
+        }
+
+        for (const expression of this.expressions) {
+            errors = [ ...errors, ...expression.collectErrors() ];
+        }
+
+        return errors;
+    }
 }
