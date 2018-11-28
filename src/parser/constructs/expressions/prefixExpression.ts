@@ -1,10 +1,10 @@
-import {LiteralStringContext} from "../../../grammar/TuaParser";
+import {PrefixExprContext} from "../../../grammar/TuaParser";
 import {Type} from "../../types/type";
 import {Construct} from "../construct";
 import {Expression} from "../expression";
 
-export class StringExpression extends Expression {
-    constructor(ctx: LiteralStringContext, parent: Construct) {
+export class PrefixExpression extends Expression {
+    constructor(ctx: PrefixExprContext, parent: Construct) {
         super(parent);
     }
 
