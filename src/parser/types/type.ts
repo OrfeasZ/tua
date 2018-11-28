@@ -1,4 +1,5 @@
 export enum TuaType {
+    UNKNOWN,
     INVALID,
     INT,
     FLOAT,
@@ -13,6 +14,7 @@ export enum TuaType {
 
 export class Type {
     // Ready types for easy consumption.
+    public static Unknown: Type = new Type(TuaType.UNKNOWN, false);
     public static Invalid: Type = new Type(TuaType.INVALID, false);
     public static Int: Type = new Type(TuaType.INT, false);
     public static NullableInt: Type = new Type(TuaType.INT, true);

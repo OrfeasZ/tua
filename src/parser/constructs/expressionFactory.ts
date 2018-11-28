@@ -2,6 +2,7 @@ import {ExprContext} from "../../grammar/TuaParser";
 import {Construct} from "./construct";
 import {Expression} from "./expression";
 import {NilExpression} from "./expressions/nilExpression";
+import {NumeralExpression} from "./expressions/numeralExpression";
 
 export class ExpressionFactory {
     /**
@@ -11,7 +12,10 @@ export class ExpressionFactory {
      * @param parent
      */
     public static fromContext(ctx: ExprContext, parent: Construct): Expression {
-        // TODO
+        if (ctx.numeral()) {
+            return new NumeralExpression(ctx.numeral()!, parent);
+        }
+
         return new NilExpression(parent);
     }
 }

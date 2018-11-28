@@ -9,7 +9,7 @@ export class LangSymbol extends Construct {
     public readonly endIndex: number;
     public definedType: TuaTypeDef | null = null;
 
-    protected internalType: Type = Type.Any;
+    protected internalType: Type = Type.Unknown;
 
     constructor(ctx: TerminalNode, parent: Construct) {
         super(parent);

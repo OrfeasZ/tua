@@ -36,7 +36,7 @@ export class Block extends Construct {
      */
     public addSymbol(symbol: LangSymbol) {
         if (!(symbol.name in this.scopedSymbols)) {
-            this.scopedSymbols[symbol.name] = [ symbol ];
+            this.scopedSymbols[symbol.name] = [];
         }
 
         // Add the symbol and sort our existing symbols based on their
@@ -115,7 +115,7 @@ export class Block extends Construct {
             return this.returnStatement.type();
         }
 
-        return Type.Invalid;
+        return Type.Unknown;
     }
 
     public isBlock(): boolean {
@@ -123,7 +123,7 @@ export class Block extends Construct {
     }
 
     public collectErrors(): AnalysisError[] {
-        const errors: AnalysisError[] = [];
+        const errors: AnalysisError[] = [ ...this.analysisErrors ];
 
         for (const statement of this.statements) {
             errors.push(...statement.collectErrors());
@@ -134,5 +134,15 @@ export class Block extends Construct {
         }
 
         return errors;
+    }
+
+    public analyze() {
+        for (const statement of this.statements) {
+            statement.analyze();
+        }
+
+        if (this.returnStatement) {
+            this.returnStatement.analyze();
+        }
     }
 }

@@ -7,6 +7,7 @@ import {Type} from "../types/type";
  */
 export abstract class Construct {
     public readonly parent: Construct | null;
+    protected readonly analysisErrors: AnalysisError[] = [];
 
     protected constructor(parent: Construct | null = null) {
         this.parent = parent;
@@ -27,14 +28,14 @@ export abstract class Construct {
      * this and all children constructs.
      */
     public collectErrors(): AnalysisError[] {
-        return [];
+        return this.analysisErrors;
     }
 
     /**
      * Returns the type of this construct.
      */
     public type(): Type {
-        return Type.Invalid;
+        return Type.Unknown;
     }
 
     /**

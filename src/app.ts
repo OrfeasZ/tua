@@ -1,13 +1,13 @@
 import {Analyzer} from "./parser/analyzer";
 
 const code = `
-    local a = 123
+    local a = 100
     
-    function b(c: int) -> string
-        return tostring(a) .. tostring(c)
+    --[[local function b(c: int) -> int
+        return c * a
     end
     
-    b(567)
+    local d = b(2)]]
 `;
 
 const errors = Analyzer.analyze(code);
