@@ -83,7 +83,7 @@ export class LocalVariableStatement extends Statement {
             this.analysisErrors.push(new AnalysisError(
                 TuaError.LOCAL_ASSIGNMENT_UNMATCHED,
                 this.ctx.start.startIndex,
-                this.ctx.stop!.stopIndex,
+                this.ctx.stop!.stopIndex + 1,
             ));
         }
 
