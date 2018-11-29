@@ -36,10 +36,10 @@ export class ExpressionFactory {
             return new PrefixExpression(ctx.prefixExpr()!, parent);
         } else if (ctx.tableConstructor()) {
             return new TableExpression(ctx.tableConstructor()!, parent);
-        } else if (ctx.binop()) {
-            return new BinOpExpression(ctx.binop()!, ctx.expr()[0], ctx.expr()[1], parent);
-        } else if (ctx.unop()) {
-            return new UnOpExpression(ctx.unop()!, ctx.expr()[0], parent);
+        } else if (ctx.binOp()) {
+            return new BinOpExpression(ctx.binOp()!, ctx.expr()[0], ctx.expr()[1], parent);
+        } else if (ctx.unOp()) {
+            return new UnOpExpression(ctx.unOp()!, ctx.expr()[0], parent);
         }
 
         return new NilExpression(parent);

@@ -129,8 +129,8 @@ expr
     | functionDef
     | prefixExpr
     | tableConstructor
-    | expr binop expr
-    | unop expr
+    | expr binOp expr
+    | unOp expr
     ;
 
 nilExpr
@@ -207,7 +207,14 @@ fieldSep
     | ';'
     ;
 
-binop
+binOp
+    : mathOp
+    | bitOp
+    | logicOp
+    | stringOp
+    ;
+
+mathOp
     : '+'
     | '-'
     | '*'
@@ -215,13 +222,18 @@ binop
     | '//'
     | '^'
     | '%'
-    | '&'
+    ;
+
+bitOp
+    : '&'
     | '~'
     | '|'
     | '>>'
     | '<<'
-    | '..'
-    | '<'
+    ;
+
+logicOp
+    : '<'
     | '<='
     | '>'
     | '>='
@@ -231,15 +243,31 @@ binop
     | 'or'
     ;
 
-unop
-    : '-'
-    | notop
-    | '#'
-    | '~'
+stringOp
+    : '..'
     ;
 
-notop
+unOp
+    : unMinus
+    | unLogicNot
+    | unLength
+    | unBitNot
+    ;
+
+unMinus
+    : '-'
+    ;
+
+unLogicNot
     : 'not'
+    ;
+
+unLength
+    : '#'
+    ;
+
+unBitNot
+    : '~'
     ;
 
 literalString

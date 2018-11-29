@@ -4,6 +4,8 @@ import {Construct} from "../construct";
 import {Expression} from "../expression";
 
 export class NumeralExpression extends Expression {
+    // We store this as a string so we can maintain accuracy.
+    private readonly numeralValue: string;
     private readonly internalType: Type;
 
     constructor(ctx: NumeralContext, parent: Construct) {
@@ -14,6 +16,8 @@ export class NumeralExpression extends Expression {
         } else {
             this.internalType = Type.Float;
         }
+
+        this.numeralValue = ctx.text;
     }
 
     public type(): Type {

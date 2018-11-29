@@ -2,7 +2,7 @@ import {AbstractParseTreeVisitor} from "antlr4ts/tree";
 import {
     ArgsContext,
     AssignStatContext,
-    BinopContext,
+    BinOpContext,
     BlockContext,
     BoolExprContext,
     BreakStatContext,
@@ -26,15 +26,15 @@ import {
     LocalFunctionStatContext,
     LocalVarStatContext,
     NameListContext,
-    NilExprContext, NotopContext,
+    NilExprContext,
     NumeralContext,
     ParListContext,
     PrefixExprContext,
     RepeatStatContext, RetStatContext,
     SelfCallContext, SelfCallIdentifierContext,
     StatContext,
-    TableConstructorContext, TypedIdentifierContext,
-    UnopContext,
+    TableConstructorContext, TypedIdentifierContext, UnLogicNotContext,
+    UnOpContext,
     VarargExprContext, VarEvalContext,
     VariableContext,
     VarListContext,
@@ -422,12 +422,12 @@ export class GenerationVisitor extends AbstractParseTreeVisitor<void> implements
             this.visitPrefixExpr(ctx.prefixExpr()!, writer);
         } else if (ctx.tableConstructor()) {
             this.visitTableConstructor(ctx.tableConstructor()!, writer);
-        } else if (ctx.binop()) {
+        } else if (ctx.binOp()) {
             this.visitExpr(ctx.expr()[0], writer);
-            this.visitBinop(ctx.binop()!, writer);
+            this.visitBinOp(ctx.binOp()!, writer);
             this.visitExpr(ctx.expr()[1], writer);
-        } else if (ctx.unop()) {
-            this.visitUnop(ctx.unop()!, writer);
+        } else if (ctx.unOp()) {
+            this.visitUnOp(ctx.unOp()!, writer);
             this.visitExpr(ctx.expr()[0], writer);
         }
     }
@@ -568,21 +568,21 @@ export class GenerationVisitor extends AbstractParseTreeVisitor<void> implements
         writer.writeLine(ctx.text);
     }
 
-    public visitBinop(ctx: BinopContext, writer: Writer = new NullWriter()) {
+    public visitBinOp(ctx: BinOpContext, writer: Writer = new NullWriter()) {
         writer.write(" ");
         writer.write(ctx.text);
         writer.write(" ");
     }
 
-    public visitUnop(ctx: UnopContext, writer: Writer = new NullWriter()) {
-        if (ctx.notop()) {
-            this.visitNotop(ctx.notop()!, writer);
+    public visitUnOp(ctx: UnOpContext, writer: Writer = new NullWriter()) {
+        if (ctx.unLogicNot()) {
+            this.visitUnLogicNot(ctx.unLogicNot()!, writer);
         } else {
             writer.write(ctx.text);
         }
     }
 
-    public visitNotop(ctx: NotopContext, writer: Writer = new NullWriter()) {
+    public visitUnLogicNot(ctx: UnLogicNotContext, writer: Writer = new NullWriter()) {
         writer.write("not ");
     }
 
