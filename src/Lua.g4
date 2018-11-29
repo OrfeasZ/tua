@@ -208,13 +208,15 @@ fieldSep
     ;
 
 binOp
-    : mathOp
+    : arithmOp
     | bitOp
     | logicOp
+    | arithmCompOp
+    | equalityOp
     | stringOp
     ;
 
-mathOp
+arithmOp
     : '+'
     | '-'
     | '*'
@@ -233,14 +235,20 @@ bitOp
     ;
 
 logicOp
+    : 'and'
+    | 'or'
+    ;
+
+equalityOp
+    : '=='
+    | '~='
+    ;
+
+arithmCompOp
     : '<'
     | '<='
     | '>'
     | '>='
-    | '=='
-    | '~='
-    | 'and'
-    | 'or'
     ;
 
 stringOp
