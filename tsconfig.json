@@ -11,7 +11,8 @@
         "outDir": "dist",
         "strictNullChecks": true,
         "experimentalDecorators": true,
-        "strictFunctionTypes": false
+        "strictFunctionTypes": false,
+        "declaration": true
     },
     "include": [
         "src/**/*"
