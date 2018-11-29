@@ -9,6 +9,9 @@ export class BoolExpression extends Expression {
     constructor(ctx: BoolExprContext, parent: Construct) {
         super(parent);
 
+        this.indexStart = ctx.start.startIndex;
+        this.indexEnd = ctx.stop!.stopIndex + 1;
+
         this.boolValue = ctx.text === "true";
     }
 

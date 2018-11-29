@@ -9,6 +9,9 @@ export class StringExpression extends Expression {
     constructor(ctx: LiteralStringContext, parent: Construct) {
         super(parent);
 
+        this.indexStart = ctx.start.startIndex;
+        this.indexEnd = ctx.stop!.stopIndex + 1;
+
         this.stringValue = ctx.text;
     }
 

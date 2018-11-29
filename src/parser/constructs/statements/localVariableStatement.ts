@@ -54,7 +54,7 @@ export class LocalVariableStatement extends Statement {
             symbol.analyze();
         }
 
-        // Assign the calculated types to our symbols.
+        // Check the types of our defined symbols against the assigned expressions.
         for (let i = 0; i < this.expressions.length && i < this.symbols.length; ++i) {
             const symbolType = this.symbols[i].type();
             const expressionType = this.expressions[i].type();

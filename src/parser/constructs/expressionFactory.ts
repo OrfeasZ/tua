@@ -21,7 +21,7 @@ export class ExpressionFactory {
      */
     public static fromContext(ctx: ExprContext, parent: Construct): Expression {
         if (ctx.nilExpr()) {
-            return new NilExpression(parent);
+            return new NilExpression(ctx.nilExpr()!, parent);
         } else if (ctx.boolExpr()) {
             return new BoolExpression(ctx.boolExpr()!, parent);
         } else if (ctx.numeral()) {
@@ -42,6 +42,6 @@ export class ExpressionFactory {
             return new UnOpExpression(ctx.unOp()!, ctx.expr()[0], parent);
         }
 
-        return new NilExpression(parent);
+        return new NilExpression(null, parent);
     }
 }

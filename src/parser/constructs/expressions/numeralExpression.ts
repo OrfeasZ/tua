@@ -11,6 +11,9 @@ export class NumeralExpression extends Expression {
     constructor(ctx: NumeralContext, parent: Construct) {
         super(parent);
 
+        this.indexStart = ctx.start.startIndex;
+        this.indexEnd = ctx.stop!.stopIndex + 1;
+
         if (ctx.INTEGER() || ctx.HEX()) {
             this.internalType = Type.Int;
         } else {
