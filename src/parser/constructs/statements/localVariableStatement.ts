@@ -89,6 +89,7 @@ export class LocalVariableStatement extends Statement {
         }
 
         // Emit errors for symbols with unknown types and switch their type to any.
+        // TODO: Do a forward pass and try to see if we can infer the type from later assignment.
         for (const symbol of this.symbols) {
             if (symbol.type().type !== TuaType.UNKNOWN) {
                 continue;
