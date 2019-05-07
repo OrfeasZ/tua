@@ -71,8 +71,8 @@ export class LocalVariableStatement extends Statement {
             if (!symbolType.isAssignableFrom(expressionType)) {
                 this.analysisErrors.push(new AnalysisError(
                     TuaError.ASSIGNMENT_TYPES_NOT_ASSIGNABLE,
-                    this.symbols[i].startIndex,
-                    this.symbols[i].endIndex,
+                    this.expressions[i].indexStart,
+                    this.expressions[i].indexEnd,
                     [ symbolType, expressionType ],
                 ));
             }
