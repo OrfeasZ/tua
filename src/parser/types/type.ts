@@ -10,6 +10,7 @@ export enum TuaType {
     TABLE,
     CALLABLE,
     NAMED,
+    VOID,
 }
 
 export class Type {
@@ -26,6 +27,7 @@ export class Type {
     public static NullableStr: Type = new Type(TuaType.STR, true);
     public static Any: Type = new Type(TuaType.ANY, true);
     public static Nil: Type = new Type(TuaType.NIL, true);
+    public static Void: Type = new Type(TuaType.VOID, false);
 
     /**
      * The low-level tua type enumeration for this type.
@@ -37,7 +39,7 @@ export class Type {
      */
     public readonly nullable: boolean;
 
-    constructor(type: TuaType, nullable: boolean) {
+    protected constructor(type: TuaType, nullable: boolean) {
         this.type = type;
         this.nullable = nullable || type === TuaType.ANY || type === TuaType.NIL;
     }
@@ -69,12 +71,16 @@ export class Type {
             return true;
         }
 
-
         // Allow assignment of both ints and floats to floats.
         // TODO: Make this configurable.
         if (ourType.type === TuaType.FLOAT &&
             (realOtherType.type === TuaType.FLOAT ||
             realOtherType.type === TuaType.INT)) {
+            return true;
+        }
+
+        // We're nullable and we're being assigned a nil value. That's fine.
+        if (ourType.nullable && realOtherType.type === TuaType.NIL) {
             return true;
         }
 
