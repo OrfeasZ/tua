@@ -10,7 +10,8 @@
         "no-trailing-whitespace": false,
         "semicolon": [true, "always", "ignore-bound-class-methods"],
         "no-empty": false,
-        "interface-name": false
+        "interface-name": false,
+        "object-literal-sort-keys": false
     },
     "rulesDirectory": []
 }

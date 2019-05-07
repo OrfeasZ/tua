@@ -5,18 +5,18 @@
   "repository": "https://github.com/OrfeasZ/tua",
   "author": "Orfeas Zafeiris",
   "devDependencies": {
-    "@types/chai": "^4.1.6",
-    "@types/mocha": "^5.2.5",
-    "@types/node": "^10.11.7",
-    "antlr4ts-cli": "^0.4.0-alpha.4",
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.6",
+    "@types/node": "^10.14.6",
+    "antlr4ts-cli": "^0.5.0-alpha.3",
     "chai": "^4.2.0",
-    "mocha": "^5.2.0",
-    "ts-node": "^7.0.1",
-    "tslint": "^5.11.0",
-    "typescript": "^3.1.3"
+    "mocha": "^6.1.4",
+    "ts-node": "^8.1.0",
+    "tslint": "^5.16.0",
+    "typescript": "^3.4.5"
   },
   "dependencies": {
-    "antlr4ts": "^0.4.1-alpha.0"
+    "antlr4ts": "^0.5.0-alpha.3"
   },
   "scripts": {
     "tsc": "tsc",
