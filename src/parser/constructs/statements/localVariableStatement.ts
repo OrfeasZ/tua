@@ -1,5 +1,6 @@
 import {LocalVarStatContext} from "../../../grammar/TuaParser";
-import {AnalysisError, TuaError} from "../../../util/analysisError";
+import {AnalysisError} from "../../../util/analysisError";
+import {TuaError} from "../../../util/analysisErrors";
 import {TuaType, Type} from "../../types/type";
 import {Block} from "../block";
 import {Construct} from "../construct";

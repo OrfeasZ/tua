@@ -1,5 +1,6 @@
 import {BinOpContext, ExprContext} from "../../../grammar/TuaParser";
-import {AnalysisError, TuaError} from "../../../util/analysisError";
+import {AnalysisError, ErrorDetails} from "../../../util/analysisError";
+import {TuaError} from "../../../util/analysisErrors";
 import {TuaType, Type} from "../../types/type";
 import {Construct} from "../construct";
 import {Expression} from "../expression";
@@ -184,7 +185,7 @@ export class BinOpExpression extends Expression {
         }
     }
 
-    protected checkExpression(expectedLhsTypes: TuaType[], expectedRhsTypes: TuaType[], error: TuaError) {
+    protected checkExpression(expectedLhsTypes: TuaType[], expectedRhsTypes: TuaType[], error: ErrorDetails) {
         if (!expectedLhsTypes.includes(this.lhsExpression.type().type)) {
             this.analysisErrors.push(new AnalysisError(
                 error,
