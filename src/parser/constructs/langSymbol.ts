@@ -24,6 +24,10 @@ export class LangSymbol extends Construct {
     }
 
     public type(): Type {
+        if (this.definedType !== null) {
+            return this.definedType.type();
+        }
+        
         return this.internalType;
     }
 }
