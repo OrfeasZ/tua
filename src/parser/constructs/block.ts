@@ -1,5 +1,6 @@
 import {BlockContext} from "../../grammar/TuaParser";
 import {AnalysisError} from "../../util/analysisError";
+import {TuaError} from "../../util/analysisErrors";
 import {Type} from "../types/type";
 import {Construct} from "./construct";
 import {LangSymbol} from "./langSymbol";
@@ -115,7 +116,7 @@ export class Block extends Construct {
             return this.returnStatement.type();
         }
 
-        return Type.Unknown;
+        return Type.Void;
     }
 
     public isBlock(): boolean {
@@ -143,6 +144,35 @@ export class Block extends Construct {
 
         if (this.returnStatement) {
             this.returnStatement.analyze();
+        }
+
+        const parentBlock = this.parentBlock() as (Block | null);
+
+        // Emit errors about hidden symbols.
+        for (const name in this.scopedSymbols) {
+            if (!this.scopedSymbols.hasOwnProperty(name)) {
+                continue;
+            }
+
+            const symbols = this.scopedSymbols[name];
+
+            let startingIndex = 1;
+
+            // If we have symbols with the same name in parent blocks then all current symbols are hiding something.
+            if (parentBlock !== null && parentBlock.getSymbol(name) !== null) {
+                startingIndex = 0;
+            }
+
+            for (let i = startingIndex; i < symbols.length; ++i) {
+                const symbol = symbols[i];
+
+                this.analysisErrors.push(new AnalysisError(
+                    TuaError.SYMBOL_HIDES_PREVIOUS_SYMBOL,
+                    symbol.startIndex,
+                    symbol.endIndex,
+                    [symbol],
+                ));
+            }
         }
     }
 }
