@@ -24,4 +24,17 @@ export class LocalFunctionStatement extends Statement {
         const parentBlock = this.parentBlock() as Block;
         parentBlock.addSymbol(this.symbol);
     }
+
+    public analyze(): void {
+        this.symbol.analyze();
+        this.function.analyze();
+    }
+
+    public collectErrors() {
+        return [
+            ...this.analysisErrors,
+            ...this.function.collectErrors(),
+            ...this.symbol.collectErrors(),
+        ];
+    }
 }
